@@ -3,7 +3,7 @@ import React from "react";
 import MathOperations from "./components/MathOperations";
 import Result from "./components/Result";
 import Functions from "./components/Functions";
-import Button from "./components/Button";
+import Button from "./components/Button/Button";
 
 import './App.css'
 
