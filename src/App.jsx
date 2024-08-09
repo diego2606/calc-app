@@ -25,17 +25,31 @@ const App = () => {
         <Result value={stack}/>
         <Numbers onClickNumber={number => {
                 console.log('Click en number', number)
-                setStack(number)
+                setStack(`${stack}${number}`)
             }}
         />
         <Functions
-            onContentClear={() => console.log('Content clear')}
-            onDelete={() => console.log('Delete')}
+            onContentClear={() => {
+                console.log('Content clear')
+                setStack('')
+            }}
+
+            onDelete={() => {
+                console.log('Delete')
+                const newStack = stack.substring(0, stack.length - 1)
+                setStack(newStack)
+            }}
         
         />
         <MathOperations 
-            onClickOperation={operation => console.log('Operation:', operation)}
-            onClickEqual={equal => console.log('Equal:', equal)}
+            onClickOperation={operation => {
+                console.log('Operation:', operation)
+                setStack(`${stack}${operation}`)
+            }}
+            onClickEqual={equal => {
+                console.log('Equal:', equal)
+                setStack(`${stack}${equal}`)
+            }}
         />
     </main>)
 }
