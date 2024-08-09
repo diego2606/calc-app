@@ -1,5 +1,6 @@
 // importation
 import React, { useState } from "react";
+import words from "lodash.words";
 import MathOperations from "./components/MathOperations";
 import Result from "./components/Result";
 import Functions from "./components/Functions";
@@ -18,11 +19,13 @@ const App = () => {
     // [xxx], [setxxxx]
     const [stack, setStack] = useState('')
 
+    const items = words(stack, /[^-^+^*^/]+/g)
 
+    const value = items.length > 0 ? items[items.length-1] : '0';
     // Lo que ejecuta la funcion
-    console.log('Render App')
+    console.log('Render App', value)
     return (<main className="react-calculator">
-        <Result value={stack}/>
+        <Result value={value}/>
         <Numbers onClickNumber={number => {
                 console.log('Click en number', number)
                 setStack(`${stack}${number}`)
@@ -35,9 +38,11 @@ const App = () => {
             }}
 
             onDelete={() => {
-                console.log('Delete')
-                const newStack = stack.substring(0, stack.length - 1)
-                setStack(newStack)
+                if (stack.length > 0) {
+                    console.log('Delete')
+                    const newStack = stack.substring(0, stack.length - 1)
+                    setStack(newStack)
+                }
             }}
         
         />
@@ -48,7 +53,7 @@ const App = () => {
             }}
             onClickEqual={equal => {
                 console.log('Equal:', equal)
-                setStack(`${stack}${equal}`)
+                setStack(eval(stack).toString())
             }}
         />
     </main>)
